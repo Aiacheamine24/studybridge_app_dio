@@ -13,13 +13,28 @@ class AppTheme {
       elevation: 0,
     ),
     textTheme: const TextTheme(
-      displayLarge: TextStyle(
+      titleLarge: TextStyle(
+        fontSize: 48,
+        fontWeight: FontWeight.bold,
+        color: AppPallete.textColor,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 36,
+        fontWeight: FontWeight.bold,
+        color: AppPallete.textColor,
+      ),
+      titleSmall: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
         color: AppPallete.textColor,
       ),
+      displayLarge: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: AppPallete.textColor,
+      ),
       displayMedium: TextStyle(
-        fontSize: 22,
+        fontSize: 24,
         fontWeight: FontWeight.bold,
         color: AppPallete.textColor,
       ),
@@ -35,11 +50,6 @@ class AppTheme {
       ),
       headlineSmall: TextStyle(
         fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: AppPallete.textColor,
-      ),
-      titleLarge: TextStyle(
-        fontSize: 14,
         fontWeight: FontWeight.bold,
         color: AppPallete.textColor,
       ),
@@ -93,6 +103,7 @@ class AppTheme {
     // Icon Theme
     iconTheme: const IconThemeData(
       color: AppPallete.iconColor,
+      size: Sizes.p24,
     ),
   );
 

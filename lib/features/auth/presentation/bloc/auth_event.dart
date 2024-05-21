@@ -1,0 +1,14 @@
+part of 'auth_bloc.dart';
+
+@immutable
+sealed class AuthEvent {}
+
+/// Go to Login Widget Event
+///
+/// This event is used to navigate to the Login Widget
+final class GoToLoginWidgetEvent extends AuthEvent {}
+
+/// Go to Register Widget Event
+///
+/// This event is used to navigate to the Register Widget
+final class GoToRegisterWidgetEvent extends AuthEvent {}

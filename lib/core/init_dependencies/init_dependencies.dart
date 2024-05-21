@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_clean_learn/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
@@ -11,4 +12,7 @@ Future<void> initDependencies() async {
   getItInstance
     ..registerLazySingleton(() => Dio())
     ..registerLazySingleton(() => const FlutterSecureStorage());
+
+  // Register factory dependencies
+  getItInstance..registerFactory(() => AuthBloc());
 }

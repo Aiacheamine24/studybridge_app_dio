@@ -1,5 +1,4 @@
-import 'package:dio_clean_learn/features/auth/presentation/screens/login_screen.dart';
-import 'package:dio_clean_learn/features/auth/presentation/screens/register_screen.dart';
+import 'package:dio_clean_learn/features/auth/presentation/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,14 +10,10 @@ final router = GoRouter(
     // Add your routes here
     // Auth routes
     GoRoute(
-        path: LoginScreen.screenName,
+        path: AuthScreen.screenName,
         pageBuilder: (context, state) =>
-            const MaterialPage(child: LoginScreen())),
-    GoRoute(
-        path: RegisterScreen.screenName,
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: RegisterScreen())),
+            const MaterialPage(child: AuthScreen())),
   ],
-  initialLocation: LoginScreen.screenName,
+  initialLocation: AuthScreen.screenName,
   debugLogDiagnostics: true,
 );

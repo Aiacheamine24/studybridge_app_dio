@@ -15,7 +15,6 @@ class App extends StatelessWidget {
       routeInformationParser: null,
       routeInformationProvider: null,
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
     );
   }
 }
