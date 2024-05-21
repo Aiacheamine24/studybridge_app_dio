@@ -5,29 +5,40 @@ import 'package:dio_clean_learn/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+class RegisterForm extends StatelessWidget {
+  const RegisterForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final identifierController = TextEditingController();
+    final usernameController = TextEditingController();
+    final emailController = TextEditingController();
     final passwordController = TextEditingController();
 
     void submit() {
-      final identifier = identifierController.text;
+      final username = usernameController.text;
+      final email = emailController.text;
       final password = passwordController.text;
-      print('Identifier: $identifier, Password: $password');
+
+      print('Username: $username, Email: $email, Password: $password');
     }
 
     return Padding(
-      padding: const EdgeInsets.all(Sizes.p32),
+      padding: const EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextField(
-            controller: identifierController,
+            controller: usernameController,
             decoration: const InputDecoration(
-              labelText: 'Email or Username',
+              labelText: 'Username',
+            ),
+            onEditingComplete: () => FocusScope.of(context).nextFocus(),
+          ),
+          gapH8,
+          TextField(
+            controller: emailController,
+            decoration: const InputDecoration(
+              labelText: 'Email',
             ),
             onEditingComplete: () => FocusScope.of(context).nextFocus(),
           ),
@@ -50,7 +61,7 @@ class LoginForm extends StatelessWidget {
             },
             builder: (context, state) {
               return CustomButton(
-                label: 'Login',
+                label: 'Register',
                 onPressed: submit,
                 icon: const Icon(Icons.login, color: Colors.white),
                 textColor: Colors.white,

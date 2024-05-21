@@ -14,5 +14,5 @@ Future<void> initDependencies() async {
     ..registerLazySingleton(() => const FlutterSecureStorage());
 
   // Register factory dependencies
-  getItInstance..registerFactory(() => AuthBloc());
+  getItInstance.registerFactory(() => AuthBloc());
 }
