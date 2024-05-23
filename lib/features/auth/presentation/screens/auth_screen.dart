@@ -1,3 +1,4 @@
+import 'package:dio_clean_learn/core/common/widgets/snak_bar.dart';
 import 'package:dio_clean_learn/core/constants/app_sizes.dart';
 import 'package:dio_clean_learn/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:dio_clean_learn/features/auth/presentation/widgets/login_widget.dart';
@@ -6,10 +7,11 @@ import 'package:dio_clean_learn/features/auth/presentation/widgets/side_image.da
 import 'package:dio_clean_learn/features/auth/presentation/widgets/title_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthScreen extends StatelessWidget {
   /// Default screen key name
-  static const String screenName = '/Authentification';
+  static const String screenName = '/authentification';
   const AuthScreen({super.key});
 
   @override
@@ -27,6 +29,18 @@ class AuthScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // BlocListener<AuthBloc, AuthState>(
+                  //   listener: (context, state) {
+                  //     if (state is AuthSuccess) {
+                  //       context.go('/home');
+                  //     } else if (state is AuthError) {
+                  //       print(state.message);
+                  //       customSnackBar(context,
+                  //           message: state.message, type: 'error');
+                  //     }
+                  //   },
+                  //   child: const SizedBox.shrink(),
+                  // ),
                   const TitleDecoration(),
                   gapH32,
                   // LOGIC FOR SELETED WIDGET HERE

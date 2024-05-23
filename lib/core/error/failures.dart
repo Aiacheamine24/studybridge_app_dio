@@ -1,4 +1,9 @@
 class Failure {
   final String message;
-  Failure([this.message = 'An unexpected error occurred,']);
+  final String type = 'failure';
+  final int statusCode;
+  Failure({
+    required this.message,
+    this.statusCode = 500,
+  });
 }

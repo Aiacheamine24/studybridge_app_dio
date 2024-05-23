@@ -16,9 +16,8 @@ class LoginWidgetUI extends StatelessWidget {
         gapH20,
         const LoginForm(),
         TextButton(
-          onPressed: () {
-            BlocProvider.of<AuthBloc>(context).add(GoToRegisterWidgetEvent());
-          },
+          onPressed: () =>
+              context.read<AuthBloc>().add(GoToRegisterWidgetEvent()),
           child: const Text('Don\'t have an account? Register'),
         ),
       ],

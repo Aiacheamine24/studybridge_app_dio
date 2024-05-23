@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.userRegisterUsecase,
   }) : super(AuthInitial()) {
     /// Listen to AuthEvent and emit AuthState to change the UI widget
-    on<AuthEvent>((event, emit) {
+    on<AuthEvent>((event, emit) async {
       // Go to Login Widget Event
       if (event is GoToLoginWidgetEvent) {
         emit(LoginWidget());
@@ -24,7 +24,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event is GoToRegisterWidgetEvent) {
         emit(RegisterWidget());
       }
-
       // Login Event
       if (event is LoginEvent) {
         emit(AuthLoading());
@@ -34,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.password,
         )).then((result) {
           result.fold(
-            (failure) => emit(AuthFailure(message: failure.message)),
+            (failure) => emit(AuthError(failure.message)),
             (user) => emit(AuthSuccess()),
           );
         });
@@ -43,16 +42,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else if (event is RegisterEvent) {
         emit(AuthLoading());
         // Call the register usecase
-        userRegisterUsecase(UserRegisterParams(
+        final res = await userRegisterUsecase(UserRegisterParams(
           username: event.username,
           email: event.email,
           password: event.password,
-        )).then((result) {
-          result.fold(
-            (failure) => emit(AuthFailure(message: failure.message)),
-            (user) => emit(AuthSuccess()),
-          );
-        });
+        ));
+        res.fold(
+          (failure) => emit(AuthError(failure.message)),
+          (user) => emit(AuthSuccess()),
+        );
       }
     });
   }

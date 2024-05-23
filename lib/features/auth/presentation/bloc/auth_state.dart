@@ -11,15 +11,6 @@ final class AuthLoading extends AuthState {}
 
 final class AuthSuccess extends AuthState {}
 
-final class AuthFailure extends AuthState {
-  final String message;
-  final String type = 'failure';
-
-  const AuthFailure({
-    required this.message,
-  });
-}
-
 final class AuthError extends AuthState {
   final String message;
   final String type = 'error';

@@ -1,3 +1,6 @@
+import 'package:dio_clean_learn/core/constants/app_constants.dart';
+import 'package:dio_clean_learn/core/error/exceptions.dart';
+import 'package:dio_clean_learn/core/network/networking.dart';
 import 'package:dio_clean_learn/features/auth/data/models/user_model.dart';
 
 abstract interface class AuthRemoteDataSource {
@@ -25,48 +28,44 @@ abstract interface class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+  final Networking networking;
+  const AuthRemoteDataSourceImpl({required this.networking});
+
   @override
   // Future<UserModelDataLayer> loginUser(
   Future<UserModelDataLayer> loginUser(
       {required String identifier, required String password}) async {
     try {
-      print('Login user with identifier: $identifier and password: $password');
-      return const UserModelDataLayer(
-        id: '1',
-        username: 'username',
-        email: 'email',
-        token: "dasd",
-        isActive: true,
-        isEmailVerified: true,
-        permissions: [],
-        profilePicture: '',
-        roleId: '1',
-      );
+      final response = await networking
+          .post(path: '${AppConstants.baseUrl}/auth/login', data: {
+        'identifier': identifier,
+        'password': password,
+      });
+
+      // Assuming that the response body is a Map<String, dynamic>
+      final data = response.data as Map<String, dynamic>;
+      return UserModelDataLayer.fromJson(data);
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  // Future<UserModelDataLayer> registerUser(
   Future<UserModelDataLayer> registerUser(
       {required String username,
       required String email,
       required String password}) async {
     try {
-      print(
-          'Register user with username: $username, email: $email, and password: $password');
-      return const UserModelDataLayer(
-        id: '1',
-        username: 'username',
-        email: 'email',
-        token: "dasd",
-        isActive: true,
-        isEmailVerified: true,
-        permissions: [],
-        profilePicture: '',
-        roleId: '1',
-      );
+      final response = await networking
+          .post(path: '${AppConstants.baseUrl}/auth/register', data: {
+        'username': username,
+        'email': email,
+        'password': password,
+      });
+
+      // Assuming that the response body is a Map<String, dynamic>
+      final data = response.data as Map<String, dynamic>;
+      return UserModelDataLayer.fromJson(data);
     } catch (e) {
       rethrow;
     }

@@ -55,7 +55,7 @@ abstract interface class Networking {
 }
 
 class NetworkingImpl implements Networking {
-  final ConnectionChecker connectionChecker;
+  // final ConnectionChecker connectionChecker;
   final Dio dio;
 
   /// This class is used to send HTTP requests.
@@ -63,7 +63,7 @@ class NetworkingImpl implements Networking {
   /// The [dio] parameter is the Dio instance.
   /// The [NetworkingImpl] constructor is used to create an instance of the [NetworkingImpl] class.
   NetworkingImpl({
-    required this.connectionChecker,
+    // required this.connectionChecker,
     required this.dio,
   });
 
@@ -73,15 +73,11 @@ class NetworkingImpl implements Networking {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    if (await connectionChecker.isConnected) {
-      return dio.get(
-        path,
-        queryParameters: queryParameters ?? {},
-        options: options ?? Options(),
-      );
-    } else {
-      throw const ServerException('No internet connection');
-    }
+    return dio.get(
+      path,
+      queryParameters: queryParameters ?? {},
+      options: options ?? Options(),
+    );
   }
 
   @override
@@ -91,16 +87,12 @@ class NetworkingImpl implements Networking {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    if (await connectionChecker.isConnected) {
-      return dio.post(
-        path,
-        data: data,
-        queryParameters: queryParameters ?? {},
-        options: options ?? Options(),
-      );
-    } else {
-      throw const ServerException('No internet connection');
-    }
+    return dio.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+    );
   }
 
   @override
@@ -110,16 +102,12 @@ class NetworkingImpl implements Networking {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    if (await connectionChecker.isConnected) {
-      return dio.put(
-        path,
-        data: data,
-        queryParameters: queryParameters ?? {},
-        options: options ?? Options(),
-      );
-    } else {
-      throw const ServerException('No internet connection');
-    }
+    return dio.put(
+      path,
+      data: data,
+      queryParameters: queryParameters ?? {},
+      options: options ?? Options(),
+    );
   }
 
   @override
@@ -129,15 +117,11 @@ class NetworkingImpl implements Networking {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    if (await connectionChecker.isConnected) {
-      return dio.delete(
-        path,
-        data: data,
-        queryParameters: queryParameters ?? {},
-        options: options ?? Options(),
-      );
-    } else {
-      throw const ServerException('No internet connection');
-    }
+    return dio.delete(
+      path,
+      data: data,
+      queryParameters: queryParameters ?? {},
+      options: options ?? Options(),
+    );
   }
 }

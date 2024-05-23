@@ -42,3 +42,5 @@ final class RegisterEvent extends AuthEvent {
     required this.password,
   });
 }
+
+final class LogoutEvent extends AuthEvent {}

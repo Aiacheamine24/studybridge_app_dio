@@ -54,10 +54,10 @@ class RegisterForm extends StatelessWidget {
           gapH16,
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state is AuthError) {
-                customSnackBar(context,
-                    message: state.message, type: state.type);
-              }
+              // if (state is AuthError) {
+              //   customSnackBar(context,
+              //       message: state.message, type: state.type);
+              // }
             },
             builder: (context, state) {
               return CustomButton(

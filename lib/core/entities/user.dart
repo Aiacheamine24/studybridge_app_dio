@@ -18,4 +18,14 @@ class UserEntity {
     required this.isEmailVerified,
     required this.isActive,
   });
+
+  UserEntity.fromModel(UserEntity model)
+      : id = model.id,
+        username = model.username,
+        email = model.email,
+        roleId = model.roleId,
+        permissions = model.permissions,
+        profilePicture = model.profilePicture,
+        isEmailVerified = model.isEmailVerified,
+        isActive = model.isActive;
 }

@@ -16,7 +16,15 @@ class LoginForm extends StatelessWidget {
     void submit() {
       final identifier = identifierController.text;
       final password = passwordController.text;
-      print('Identifier: $identifier, Password: $password');
+
+      if (identifier.isEmpty || password.isEmpty) {
+        customSnackBar(context,
+            message: 'Please fill all fields', type: 'error');
+      } else {
+        context
+            .read<AuthBloc>()
+            .add(LoginEvent(identifier: identifier, password: password));
+      }
     }
 
     return Padding(
@@ -43,10 +51,10 @@ class LoginForm extends StatelessWidget {
           gapH16,
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state is AuthError) {
-                customSnackBar(context,
-                    message: state.message, type: state.type);
-              }
+              // if (state is AuthError) {
+              //   customSnackBar(context,
+              //       message: state.message, type: state.type);
+              // }
             },
             builder: (context, state) {
               return CustomButton(
@@ -54,7 +62,7 @@ class LoginForm extends StatelessWidget {
                 onPressed: submit,
                 icon: const Icon(Icons.login, color: Colors.white),
                 textColor: Colors.white,
-                isLoading: state is AuthLoading ? true : false,
+                isLoading: state is AuthLoading,
               );
             },
           ),
