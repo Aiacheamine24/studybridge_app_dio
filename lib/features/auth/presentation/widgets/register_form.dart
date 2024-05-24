@@ -10,16 +10,25 @@ class RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usernameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
+    final usernameController = TextEditingController(text: 'noadmin1');
+    final emailController = TextEditingController(text: 'noadmin1@gmail.com');
+    final passwordController = TextEditingController(text: 'aaaaaa');
 
     void submit() {
       final username = usernameController.text;
       final email = emailController.text;
       final password = passwordController.text;
 
-      print('Username: $username, Email: $email, Password: $password');
+      if (username.isEmpty || email.isEmpty || password.isEmpty) {
+        customSnackBar(context,
+            message: 'Please fill all fields', type: 'error');
+      } else {
+        context.read<AuthBloc>().add(RegisterEvent(
+              username: username,
+              email: email,
+              password: password,
+            ));
+      }
     }
 
     return Padding(
@@ -52,13 +61,7 @@ class RegisterForm extends StatelessWidget {
             onEditingComplete: submit,
           ),
           gapH16,
-          BlocConsumer<AuthBloc, AuthState>(
-            listener: (context, state) {
-              // if (state is AuthError) {
-              //   customSnackBar(context,
-              //       message: state.message, type: state.type);
-              // }
-            },
+          BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
               return CustomButton(
                 label: 'Register',

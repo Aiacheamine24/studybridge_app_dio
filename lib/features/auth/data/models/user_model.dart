@@ -21,16 +21,33 @@ class UserModelDataLayer extends UserEntity {
   /// UserModelDataLayer Class Factory Constructor
   ///
   /// This factory constructor is used to create a new instance of the UserModelDataLayer class.
-  UserModelDataLayer.fromJson(Map<String, dynamic> json)
-      : token = json['token'],
+  UserModelDataLayer.fromJsonLogin(Map<String, dynamic> json)
+      : token = json['data']['token'],
         super(
-          id: json['user']['_id'],
-          username: json['user']['username'],
-          email: json['user']['email'],
-          roleId: json['user']['role']['_id'],
-          permissions: List<String>.from(json['user']['role']['permissions']),
-          profilePicture: json['user']['profilePicture'],
-          isEmailVerified: json['user']['isEmailVerified'],
-          isActive: json['user']['isActive'],
+          id: json['data']['user']['_id'],
+          username: json['data']['user']['username'],
+          email: json['data']['user']['email'],
+          roleId: json['data']['user']['role']['_id'],
+          permissions:
+              List<String>.from(json['data']['user']['role']['permissions']),
+          profilePicture: json['data']['user']['profilePicture'],
+          isEmailVerified: json['data']['user']['isEmailVerified'],
+          isActive: json['data']['user']['isActive'],
+        );
+
+  /// UserModelDataLayer Class Factory Constructor
+  ///
+  /// This factory constructor is used to create a new instance of the UserModelDataLayer class.
+  UserModelDataLayer.fromJsonRegister(Map<String, dynamic> json)
+      : token = json['data']['token'],
+        super(
+          id: json['data']['user']['_id'],
+          username: json['data']['user']['username'],
+          email: json['data']['user']['email'],
+          roleId: json['data']['user']['role'],
+          permissions: [],
+          profilePicture: json['data']['user']['profilePicture'],
+          isEmailVerified: json['data']['user']['isEmailVerified'],
+          isActive: json['data']['user']['isActive'],
         );
 }

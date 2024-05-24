@@ -15,7 +15,9 @@ final class AuthError extends AuthState {
   final String message;
   final String type = 'error';
 
-  const AuthError(this.message);
+  const AuthError({
+    required this.message,
+  });
 }
 
 final class LoginWidget extends AuthState {}

@@ -44,7 +44,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       // Assuming that the response body is a Map<String, dynamic>
       final data = response.data as Map<String, dynamic>;
-      return UserModelDataLayer.fromJson(data);
+      return UserModelDataLayer.fromJsonLogin(data);
     } catch (e) {
       rethrow;
     }
@@ -65,7 +65,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       // Assuming that the response body is a Map<String, dynamic>
       final data = response.data as Map<String, dynamic>;
-      return UserModelDataLayer.fromJson(data);
+      return UserModelDataLayer.fromJsonRegister(data);
     } catch (e) {
       rethrow;
     }

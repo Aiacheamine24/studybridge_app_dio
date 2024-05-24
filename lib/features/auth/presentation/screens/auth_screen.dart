@@ -29,22 +29,18 @@ class AuthScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // BlocListener<AuthBloc, AuthState>(
-                  //   listener: (context, state) {
-                  //     if (state is AuthSuccess) {
-                  //       context.go('/home');
-                  //     } else if (state is AuthError) {
-                  //       print(state.message);
-                  //       customSnackBar(context,
-                  //           message: state.message, type: 'error');
-                  //     }
-                  //   },
-                  //   child: const SizedBox.shrink(),
-                  // ),
                   const TitleDecoration(),
                   gapH32,
                   // LOGIC FOR SELETED WIDGET HERE
-                  BlocBuilder<AuthBloc, AuthState>(
+                  BlocConsumer<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        context.go('/home');
+                      } else if (state is AuthError) {
+                        customSnackBar(context,
+                            message: state.message, type: 'error');
+                      }
+                    },
                     builder: (context, state) {
                       if (state is RegisterWidget) {
                         return const RegisterWidgetUI();

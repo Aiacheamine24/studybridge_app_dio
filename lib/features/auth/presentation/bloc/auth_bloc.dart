@@ -28,27 +28,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event is LoginEvent) {
         emit(AuthLoading());
         // Call the login usecase
-        userLoginUsecase(UserLoginParams(
+        final result = await userLoginUsecase(UserLoginParams(
           identifier: event.identifier,
           password: event.password,
-        )).then((result) {
-          result.fold(
-            (failure) => emit(AuthError(failure.message)),
-            (user) => emit(AuthSuccess()),
-          );
-        });
-
-        // Register Event
-      } else if (event is RegisterEvent) {
+        ));
+        result.fold(
+          (failure) => emit(AuthError(message: failure.message)),
+          (user) => emit(AuthSuccess()),
+        );
+      }
+      // Register Event
+      if (event is RegisterEvent) {
         emit(AuthLoading());
         // Call the register usecase
-        final res = await userRegisterUsecase(UserRegisterParams(
+        final result = await userRegisterUsecase(UserRegisterParams(
           username: event.username,
           email: event.email,
           password: event.password,
         ));
-        res.fold(
-          (failure) => emit(AuthError(failure.message)),
+        result.fold(
+          (failure) => emit(AuthError(message: failure.message)),
           (user) => emit(AuthSuccess()),
         );
       }
