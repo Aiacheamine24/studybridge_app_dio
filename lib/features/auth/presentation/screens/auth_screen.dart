@@ -5,6 +5,7 @@ import 'package:dio_clean_learn/features/auth/presentation/widgets/login_widget.
 import 'package:dio_clean_learn/features/auth/presentation/widgets/register_widget.dart';
 import 'package:dio_clean_learn/features/auth/presentation/widgets/side_image.dart';
 import 'package:dio_clean_learn/features/auth/presentation/widgets/title_decoration.dart';
+import 'package:dio_clean_learn/features/home/presentation/screens/home_bottom_navbar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,13 +17,21 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Width of the screen
+    final double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: null,
         body: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SideImage(),
+            // Side Image
+            width > 600
+                ? const Expanded(
+                    flex: 2,
+                    child: SideImage(),
+                  )
+                : const SizedBox(),
             Expanded(
               flex: 2,
               child: Column(
@@ -35,7 +44,7 @@ class AuthScreen extends StatelessWidget {
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state is AuthSuccess) {
-                        context.go('/home');
+                        context.go(HomeBottomNavbarScreen.defaultName);
                       } else if (state is AuthError) {
                         customSnackBar(context,
                             message: state.message, type: 'error');

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dio_clean_learn/core/error/exceptions.dart';
-import 'package:dio_clean_learn/core/network/connection_checker.dart';
+import 'package:dio_clean_learn/core/network/internet_checker.dart';
 
 abstract interface class Networking {
   /// This method is used to send a GET request.
@@ -55,7 +54,6 @@ abstract interface class Networking {
 }
 
 class NetworkingImpl implements Networking {
-  // final ConnectionChecker connectionChecker;
   final Dio dio;
 
   /// This class is used to send HTTP requests.
@@ -87,12 +85,16 @@ class NetworkingImpl implements Networking {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return dio.post(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-    );
+    if (await checkInternetConnection()) {
+      return dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters ?? {},
+        options: options ?? Options(),
+      );
+    } else {
+      throw Exception('No internet connection');
+    }
   }
 
   @override
@@ -117,11 +119,15 @@ class NetworkingImpl implements Networking {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
-    return dio.delete(
-      path,
-      data: data,
-      queryParameters: queryParameters ?? {},
-      options: options ?? Options(),
-    );
+    if (await checkInternetConnection()) {
+      return dio.delete(
+        path,
+        data: data,
+        queryParameters: queryParameters ?? {},
+        options: options ?? Options(),
+      );
+    } else {
+      throw Exception('No internet connection');
+    }
   }
 }

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="dio_clean_learn"
+        android:label="studybridge_app_dio"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

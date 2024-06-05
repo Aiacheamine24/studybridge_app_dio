@@ -25,7 +25,9 @@ class AuthRepositoryImplDataLayer implements AuthRepositoryDomaineLayer {
             statusCode: e.response?.statusCode as int));
       } else {
         // It's some other type of exception
-        return Left(Failure(message: "An error occurred"));
+        return Left(Failure(
+            message:
+                "An error occurred ${e.toString().split("Exception:").last}"));
       }
     }
   }
