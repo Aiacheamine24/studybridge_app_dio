@@ -8,6 +8,7 @@ class AppTheme {
     primaryColor: AppPallete.primaryColor,
     hintColor: AppPallete.accentColor,
     scaffoldBackgroundColor: AppPallete.scaffoldBackgroundColor,
+    dialogBackgroundColor: AppPallete.backgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppPallete.primaryColor,
       elevation: 0,

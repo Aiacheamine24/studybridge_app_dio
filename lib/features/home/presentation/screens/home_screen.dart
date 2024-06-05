@@ -1,3 +1,4 @@
+import 'package:dio_clean_learn/features/home/presentation/widgets/filters.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,8 +9,22 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Home Screen"),
+    // Width of the screen
+    final double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (width > 700) const Filters(),
+          const Expanded(
+            flex: 1,
+            child: Center(
+              child: Text("Home Screen"),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

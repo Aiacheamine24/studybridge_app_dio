@@ -16,4 +16,5 @@ class AppPallete {
   static const Color inputBackgroundColor = Color(0xFFF2F2F2);
   static const Color inputBorderColor = Color(0xFFE0E0E0);
   static const Color iconColor = Color(0xFF000000);
+  static const Color backgroundColor = Color(0xE4E4E4E4);
 }
