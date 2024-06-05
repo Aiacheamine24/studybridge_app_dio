@@ -7,6 +7,25 @@ import 'package:go_router/go_router.dart';
 ///
 /// This class is responsible for handling the routing of the application.
 final router = GoRouter(
+  errorBuilder: (context, state) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Error Page'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => context.pop(),
+            ),
+          ],
+        ),
+        body: const Center(
+          child: Text('Page not found'),
+        ),
+      ),
+    );
+  },
   routes: [
     // Add your routes here
     // Auth routes

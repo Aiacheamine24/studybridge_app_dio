@@ -11,18 +11,41 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Width of the screen
     final double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: Stack(
         children: [
-          if (width > 700) const Filters(),
-          const Expanded(
-            flex: 1,
-            child: Center(
-              child: Text("Home Screen"),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (width > 700)
+                const Filters()
+              else
+                const SizedBox.shrink(), // Placeholder for the Row alignment
+              const Expanded(
+                flex: 1,
+                child: Center(
+                  child: Text("Home Screen"),
+                ),
+              ),
+            ],
           ),
+          if (width <= 700)
+            Positioned(
+              top: 16.0,
+              right: 16.0,
+              child: FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: Theme.of(context).primaryColor,
+                elevation: 5,
+                child: Icon(
+                  Icons.filter_list,
+                  color: Theme.of(context).iconTheme.color,
+                  size: Theme.of(context).iconTheme.size,
+                ),
+              ),
+            ),
         ],
       ),
     );
