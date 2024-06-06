@@ -1,10 +1,11 @@
+import 'package:dio_clean_learn/features/home/domaine/entites/publication.dart';
 import 'package:dio_clean_learn/features/home/presentation/widgets/publication_widgets.dart';
 import 'package:flutter/material.dart';
 
 class Publication extends StatelessWidget {
   const Publication({super.key, required this.publication});
 
-  final dynamic publication;
+  final PublicationEntity publication;
 
   @override
   Widget build(BuildContext context) {

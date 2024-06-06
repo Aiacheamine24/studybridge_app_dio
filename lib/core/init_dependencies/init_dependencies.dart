@@ -6,6 +6,11 @@ import 'package:dio_clean_learn/features/auth/domaine/repository/auth_repository
 import 'package:dio_clean_learn/features/auth/domaine/usecases/login_user.dart';
 import 'package:dio_clean_learn/features/auth/domaine/usecases/register_user.dart';
 import 'package:dio_clean_learn/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:dio_clean_learn/features/home/data/datasource/publications_remote_data_source.dart';
+import 'package:dio_clean_learn/features/home/data/repositories/publication_repository_impl.dart';
+import 'package:dio_clean_learn/features/home/domaine/repository/publication_repository.dart';
+import 'package:dio_clean_learn/features/home/domaine/usecases/get_publications.dart';
+import 'package:dio_clean_learn/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -42,5 +47,17 @@ Future<void> initDependencies() async {
     ..registerFactory<AuthBloc>(() => AuthBloc(
           userLoginUsecase: getItInstance(),
           userRegisterUsecase: getItInstance(),
+        ))
+    ..registerFactory<PublicationsRemoteDataSourceImpl>(
+        () => PublicationsRemoteDataSourceImpl(
+              network: getItInstance(),
+            ))
+    ..registerFactory<PublicationRepositoryDomaineLayer>(() =>
+        PublicationRepositoryImpl(
+            publicationsRemoteDataSource: getItInstance()))
+    ..registerFactory<GetPublicationsUseCase>(() => GetPublicationsUseCase(
+        publicationRepositoryDomaineLayer: getItInstance()))
+    ..registerFactory<HomeBloc>(() => HomeBloc(
+          getPublicationsUseCase: getItInstance(),
         ));
 }

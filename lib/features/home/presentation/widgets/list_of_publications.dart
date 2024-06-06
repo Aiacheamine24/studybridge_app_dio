@@ -1,4 +1,5 @@
 import 'package:dio_clean_learn/core/constants/app_sizes.dart';
+import 'package:dio_clean_learn/features/home/domaine/entites/publication.dart';
 import 'package:dio_clean_learn/features/home/presentation/widgets/publication.dart';
 import 'package:flutter/material.dart';
 
@@ -7,120 +8,25 @@ class ListOfPublications extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final publications = [
-      {
-        "_id": "1",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
-      {
-        "_id": "2",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
-      {
-        "_id": "3",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
-      {
-        "_id": "4",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
-      {
-        "_id": "5",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
-      {
-        "_id": "6",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
-      {
-        "_id": "7",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
-      {
-        "_id": "8",
-        "title": "Title 1",
-        "lesson": 2,
-        "students": 198,
-        "level": "Beginner",
-        "review": 4.5,
-        "reviewCount": 56,
-        "price": 19.99,
-        "image": "https://via.placeholder.com/150",
-        "author": "Author 1",
-        "authorImage": "https://via.placeholder.com/50",
-        "authorSkill": "Skill 1"
-      },
+    final List<PublicationEntity> publications = [
+      PublicationEntity(
+        id: '1',
+        title: 'Title 1',
+        publicationPicture: 'https://via.placeholder.com/150',
+        createdAt: DateTime.now(),
+        author: Author(
+          id: '1',
+          username: 'Author 1',
+          email: 'Author 1 email',
+          profilePicture: 'https://via.placeholder.com/150',
+        ),
+        price: 10.0,
+        categoryDetails: [],
+        description: 'Description 1',
+        updatedAt: DateTime.now(),
+      ),
     ];
+
     return ListView.builder(
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.p12,
@@ -129,7 +35,7 @@ class ListOfPublications extends StatelessWidget {
       itemCount: publications.length,
       itemBuilder: (context, index) {
         return Publication(
-          key: Key(publications[index]["_id"] as String),
+          key: Key(publications[index].id),
           publication: publications[index],
         );
       },

@@ -1,8 +1,9 @@
 import 'package:dio_clean_learn/core/constants/app_sizes.dart';
+import 'package:dio_clean_learn/features/home/domaine/entites/publication.dart';
 import 'package:flutter/material.dart';
 
 Widget buildVerticalLayout(
-    {required BuildContext context, required publication}) {
+    {required BuildContext context, required PublicationEntity publication}) {
   return Center(
     child: ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
@@ -15,14 +16,14 @@ Widget buildVerticalLayout(
             children: [
               Expanded(
                 child: Image.network(
-                  publication['image'],
+                  publication.publicationPicture,
                   height: 250,
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),
               ),
               const SizedBox(height: Sizes.p12),
-              Text(publication['title'],
+              Text(publication.title,
                   style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: Sizes.p16),
               Row(
@@ -31,15 +32,15 @@ Widget buildVerticalLayout(
                   buildIconTextRow(
                       context: context,
                       icon: Icons.book,
-                      text: 'Lesson: ${publication['lesson']}'),
+                      text: 'Lesson: ${publication.createdAt.toString()}'),
                   buildIconTextRow(
                       context: context,
                       icon: Icons.people,
-                      text: ' ${publication['students']}'),
+                      text: ' ${publication.author.username}'),
                   buildIconTextRow(
                       context: context,
                       icon: Icons.star,
-                      text: publication['level']),
+                      text: publication.author.email),
                 ],
               ),
               const SizedBox(height: Sizes.p16),
@@ -48,13 +49,15 @@ Widget buildVerticalLayout(
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Review: ${publication['review']}/5',
+                  // Text('Review: ${publication['review']}/5',
+                  Text('Review: 2',
                       style: Theme.of(context).textTheme.bodySmall),
-                  Text('Review Count: ${publication['reviewCount']}',
+                  // Text('Review Count: ${publication['reviewCount']}',
+                  Text('Review Count: 4',
                       style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
-              Text('Price: \$${publication['price']}',
+              Text('Price: \$${publication.price}',
                   style: Theme.of(context).textTheme.bodySmall),
               buildAuthorSection(context: context, publication: publication),
             ],
@@ -66,10 +69,10 @@ Widget buildVerticalLayout(
 }
 
 Widget buildHorizontalLayout(
-    {required BuildContext context, required publication}) {
+    {required BuildContext context, required PublicationEntity publication}) {
   return Center(
     child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 270),
+      constraints: const BoxConstraints(maxWidth: 800, maxHeight: 270),
       child: Card(
         margin: const EdgeInsets.all(Sizes.p12),
         child: Padding(
@@ -81,7 +84,7 @@ Widget buildHorizontalLayout(
               Expanded(
                 flex: 3,
                 child: Image.network(
-                  publication['image'],
+                  publication.publicationPicture,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -92,7 +95,7 @@ Widget buildHorizontalLayout(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(publication['title'],
+                    Text(publication.title,
                         style: Theme.of(context).textTheme.titleSmall),
                     const SizedBox(height: Sizes.p16),
                     Row(
@@ -101,15 +104,16 @@ Widget buildHorizontalLayout(
                         buildIconTextRow(
                             context: context,
                             icon: Icons.book,
-                            text: 'Lesson: ${publication['lesson']}'),
+                            text:
+                                'Lesson: ${publication.createdAt.toString().split(" ").first}'),
                         buildIconTextRow(
                             context: context,
                             icon: Icons.people,
-                            text: ' ${publication['students']}'),
+                            text: ' ${publication.author.username}'),
                         buildIconTextRow(
                             context: context,
                             icon: Icons.star,
-                            text: publication['level']),
+                            text: publication.author.email),
                       ],
                     ),
                     const SizedBox(height: Sizes.p16),
@@ -118,13 +122,15 @@ Widget buildHorizontalLayout(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Review: ${publication['review']}/5',
+                        // Text('Review: ${publication['review']}/5',
+                        Text('Review: 2',
                             style: Theme.of(context).textTheme.bodySmall),
-                        Text('Review Count: ${publication['reviewCount']}',
+                        // Text('Review Count: ${publication['reviewCount']}',
+                        Text('Review Count: 4',
                             style: Theme.of(context).textTheme.bodySmall),
                       ],
                     ),
-                    Text('Price: \$${publication['price']}',
+                    Text('Price: \$${publication.price}',
                         style: Theme.of(context).textTheme.bodySmall),
                     const Spacer(),
                     buildAuthorSection(
@@ -157,7 +163,8 @@ Widget buildIconTextRow(
   );
 }
 
-Widget buildReviewBar({required BuildContext context, required publication}) {
+Widget buildReviewBar(
+    {required BuildContext context, required PublicationEntity publication}) {
   return LayoutBuilder(
     builder: (BuildContext context, BoxConstraints constraints) {
       return SizedBox(
@@ -177,7 +184,7 @@ Widget buildReviewBar({required BuildContext context, required publication}) {
               ),
             ),
             Container(
-              width: constraints.maxWidth * publication['review'] / 5,
+              width: constraints.maxWidth * 2 / 5,
               height: 3,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -197,25 +204,25 @@ Widget buildReviewBar({required BuildContext context, required publication}) {
 }
 
 Widget buildAuthorSection(
-    {required BuildContext context, required publication}) {
+    {required BuildContext context, required PublicationEntity publication}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(publication['authorImage']),
+            backgroundImage: NetworkImage(publication.author.profilePicture),
           ),
           const SizedBox(width: Sizes.p8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(publication['author'],
+              Text(publication.author.username,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
                       .copyWith(fontWeight: FontWeight.w600)),
-              Text('${publication['authorSkill']}',
+              Text(publication.author.email,
                   style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
