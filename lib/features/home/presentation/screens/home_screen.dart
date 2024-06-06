@@ -1,4 +1,5 @@
 import 'package:dio_clean_learn/features/home/presentation/widgets/filters.dart';
+import 'package:dio_clean_learn/features/home/presentation/widgets/list_of_publications.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,14 +27,14 @@ class HomeScreen extends StatelessWidget {
               const Expanded(
                 flex: 1,
                 child: Center(
-                  child: Text("Home Screen"),
+                  child: ListOfPublications(),
                 ),
               ),
             ],
           ),
           if (width <= 700)
             Positioned(
-              top: 16.0,
+              bottom: 16.0,
               right: 16.0,
               child: FloatingActionButton(
                 onPressed: () {},

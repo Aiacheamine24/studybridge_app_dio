@@ -7,7 +7,7 @@ import 'package:dio_clean_learn/features/home/presentation/screens/home_screen.d
 
 class HomeBottomNavbarScreen extends StatelessWidget {
   static const defaultName = "/home-screen";
-  const HomeBottomNavbarScreen({Key? key});
+  const HomeBottomNavbarScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
