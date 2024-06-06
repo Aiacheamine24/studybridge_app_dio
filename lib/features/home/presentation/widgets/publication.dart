@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Publication extends StatelessWidget {
   const Publication({super.key, required this.publication});
 
-  final publication;
+  final dynamic publication;
 
   @override
   Widget build(BuildContext context) {
