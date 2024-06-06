@@ -1,158 +1,143 @@
 import 'package:dio_clean_learn/core/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 
-class Publication extends StatelessWidget {
-  const Publication({super.key, required this.publication});
+Widget buildVerticalLayout(
+    {required BuildContext context, required publication}) {
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
+      child: Card(
+        margin: const EdgeInsets.all(Sizes.p12),
+        child: Padding(
+          padding: const EdgeInsets.all(Sizes.p12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Image.network(
+                  publication['image'],
+                  height: 250,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+              ),
+              const SizedBox(height: Sizes.p12),
+              Text(publication['title'],
+                  style: Theme.of(context).textTheme.titleSmall),
+              const SizedBox(height: Sizes.p16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildIconTextRow(
+                      context: context,
+                      icon: Icons.book,
+                      text: 'Lesson: ${publication['lesson']}'),
+                  buildIconTextRow(
+                      context: context,
+                      icon: Icons.people,
+                      text: ' ${publication['students']}'),
+                  buildIconTextRow(
+                      context: context,
+                      icon: Icons.star,
+                      text: publication['level']),
+                ],
+              ),
+              const SizedBox(height: Sizes.p16),
+              buildReviewBar(context: context, publication: publication),
+              const SizedBox(height: Sizes.p16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Review: ${publication['review']}/5',
+                      style: Theme.of(context).textTheme.bodySmall),
+                  Text('Review Count: ${publication['reviewCount']}',
+                      style: Theme.of(context).textTheme.bodySmall),
+                ],
+              ),
+              Text('Price: \$${publication['price']}',
+                  style: Theme.of(context).textTheme.bodySmall),
+              buildAuthorSection(context: context, publication: publication),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
 
-  final publication;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth < 600) {
-          return buildVerticalLayout(context);
-        } else {
-          return buildHorizontalLayout(context);
-        }
-      },
-    );
-  }
-
-  Widget buildVerticalLayout(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 600),
-        child: Card(
-          margin: const EdgeInsets.all(Sizes.p12),
-          child: Padding(
-            padding: const EdgeInsets.all(Sizes.p12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network(
+Widget buildHorizontalLayout(
+    {required BuildContext context, required publication}) {
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 270),
+      child: Card(
+        margin: const EdgeInsets.all(Sizes.p12),
+        child: Padding(
+          padding: const EdgeInsets.all(Sizes.p12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Left section: Image, takes all available space
+              Expanded(
+                flex: 3,
+                child: Image.network(
                   publication['image'],
                   fit: BoxFit.cover,
                 ),
-                const SizedBox(height: Sizes.p12),
-                Text(publication['title'],
-                    style: Theme.of(context).textTheme.titleSmall),
-                const SizedBox(height: Sizes.p16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+              const SizedBox(width: Sizes.p12),
+              // Right section: Other details
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildIconTextRow(
-                        context: context,
-                        icon: Icons.book,
-                        text: 'Lesson: ${publication['lesson']}'),
-                    buildIconTextRow(
-                        context: context,
-                        icon: Icons.people,
-                        text: ' ${publication['students']}'),
-                    buildIconTextRow(
-                        context: context,
-                        icon: Icons.star,
-                        text: publication['level']),
+                    Text(publication['title'],
+                        style: Theme.of(context).textTheme.titleSmall),
+                    const SizedBox(height: Sizes.p16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildIconTextRow(
+                            context: context,
+                            icon: Icons.book,
+                            text: 'Lesson: ${publication['lesson']}'),
+                        buildIconTextRow(
+                            context: context,
+                            icon: Icons.people,
+                            text: ' ${publication['students']}'),
+                        buildIconTextRow(
+                            context: context,
+                            icon: Icons.star,
+                            text: publication['level']),
+                      ],
+                    ),
+                    const SizedBox(height: Sizes.p16),
+                    buildReviewBar(context: context, publication: publication),
+                    const SizedBox(height: Sizes.p16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Review: ${publication['review']}/5',
+                            style: Theme.of(context).textTheme.bodySmall),
+                        Text('Review Count: ${publication['reviewCount']}',
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
+                    Text('Price: \$${publication['price']}',
+                        style: Theme.of(context).textTheme.bodySmall),
+                    const Spacer(),
+                    buildAuthorSection(
+                        context: context, publication: publication),
                   ],
                 ),
-                const SizedBox(height: Sizes.p16),
-                buildReviewBar(context: context, publication: publication),
-                const SizedBox(height: Sizes.p16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Review: ${publication['review']}/5',
-                        style: Theme.of(context).textTheme.bodySmall),
-                    Text('Review Count: ${publication['reviewCount']}',
-                        style: Theme.of(context).textTheme.bodySmall),
-                  ],
-                ),
-                Text('Price: \$${publication['price']}',
-                    style: Theme.of(context).textTheme.bodySmall),
-                const Spacer(),
-                buildAuthorSection(context: context, publication: publication),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget buildHorizontalLayout(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 270),
-        child: Card(
-          margin: const EdgeInsets.all(Sizes.p12),
-          child: Padding(
-            padding: const EdgeInsets.all(Sizes.p12),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left section: Image, takes all available space
-                Expanded(
-                  flex: 3,
-                  child: Image.network(
-                    publication['image'],
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(width: Sizes.p12),
-                // Right section: Other details
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(publication['title'],
-                          style: Theme.of(context).textTheme.titleSmall),
-                      const SizedBox(height: Sizes.p16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buildIconTextRow(
-                              context: context,
-                              icon: Icons.book,
-                              text: 'Lesson: ${publication['lesson']}'),
-                          buildIconTextRow(
-                              context: context,
-                              icon: Icons.people,
-                              text: ' ${publication['students']}'),
-                          buildIconTextRow(
-                              context: context,
-                              icon: Icons.star,
-                              text: publication['level']),
-                        ],
-                      ),
-                      const SizedBox(height: Sizes.p16),
-                      buildReviewBar(
-                          context: context, publication: publication),
-                      const SizedBox(height: Sizes.p16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Review: ${publication['review']}/5',
-                              style: Theme.of(context).textTheme.bodySmall),
-                          Text('Review Count: ${publication['reviewCount']}',
-                              style: Theme.of(context).textTheme.bodySmall),
-                        ],
-                      ),
-                      Text('Price: \$${publication['price']}',
-                          style: Theme.of(context).textTheme.bodySmall),
-                      const Spacer(),
-                      buildAuthorSection(
-                          context: context, publication: publication),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+    ),
+  );
 }
 
 Widget buildIconTextRow(
