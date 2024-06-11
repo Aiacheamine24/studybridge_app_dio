@@ -1,6 +1,7 @@
 import 'package:dio_clean_learn/core/app/app.dart';
 import 'package:dio_clean_learn/core/init_dependencies/init_dependencies.dart';
 import 'package:dio_clean_learn/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:dio_clean_learn/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -16,6 +17,7 @@ void main() async {
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<AuthBloc>(create: (context) => getItInstance()),
+      BlocProvider<HomeBloc>(create: (context) => getItInstance()),
     ],
     child: const App(),
   ));

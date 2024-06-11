@@ -1,3 +1,4 @@
+import 'package:dio_clean_learn/core/constants/app_constants.dart';
 import 'package:dio_clean_learn/core/constants/app_sizes.dart';
 import 'package:dio_clean_learn/features/home/domaine/entites/publication.dart';
 import 'package:flutter/material.dart';
@@ -15,32 +16,44 @@ Widget buildVerticalLayout(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Image.network(
-                  publication.publicationPicture,
-                  height: 250,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
+                child:
+                    // Round the corners of the image
+                    ClipRRect(
+                  borderRadius: BorderRadius.circular(Sizes.p8),
+                  child: Image.network(
+                    '${AppConstants.imageBaseUrl}/images/${publication.publicationPicture}',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
                 ),
               ),
               const SizedBox(height: Sizes.p12),
-              Text(publication.title,
-                  style: Theme.of(context).textTheme.titleSmall),
+              Text(
+                publication.title,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
               const SizedBox(height: Sizes.p16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buildIconTextRow(
-                      context: context,
-                      icon: Icons.book,
-                      text: 'Lesson: ${publication.createdAt.toString()}'),
-                  buildIconTextRow(
-                      context: context,
-                      icon: Icons.people,
-                      text: ' ${publication.author.username}'),
-                  buildIconTextRow(
-                      context: context,
-                      icon: Icons.star,
-                      text: publication.author.email),
+                  Expanded(
+                    child: buildIconTextRow(
+                        context: context,
+                        icon: Icons.book,
+                        text: 'Lesson: ${publication.createdAt.toString()}'),
+                  ),
+                  Expanded(
+                    child: buildIconTextRow(
+                        context: context,
+                        icon: Icons.people,
+                        text: publication.author.username),
+                  ),
+                  Expanded(
+                    child: buildIconTextRow(
+                        context: context,
+                        icon: Icons.star,
+                        text: publication.author.email),
+                  ),
                 ],
               ),
               const SizedBox(height: Sizes.p16),
@@ -49,16 +62,24 @@ Widget buildVerticalLayout(
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Text('Review: ${publication['review']}/5',
-                  Text('Review: 2',
-                      style: Theme.of(context).textTheme.bodySmall),
-                  // Text('Review Count: ${publication['reviewCount']}',
-                  Text('Review Count: 4',
-                      style: Theme.of(context).textTheme.bodySmall),
+                  Expanded(
+                    child: Text(
+                      'Review: 2',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Review Count: 4',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
                 ],
               ),
-              Text('Price: \$${publication.price}',
-                  style: Theme.of(context).textTheme.bodySmall),
+              Text(
+                'Price: \$${publication.price}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
               buildAuthorSection(context: context, publication: publication),
             ],
           ),
@@ -83,9 +104,12 @@ Widget buildHorizontalLayout(
               // Left section: Image, takes all available space
               Expanded(
                 flex: 3,
-                child: Image.network(
-                  publication.publicationPicture,
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(Sizes.p8),
+                  child: Image.network(
+                    '${AppConstants.imageBaseUrl}/images/${publication.publicationPicture}',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(width: Sizes.p12),
@@ -95,25 +119,33 @@ Widget buildHorizontalLayout(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(publication.title,
-                        style: Theme.of(context).textTheme.titleSmall),
+                    Text(
+                      publication.title,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                     const SizedBox(height: Sizes.p16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        buildIconTextRow(
-                            context: context,
-                            icon: Icons.book,
-                            text:
-                                'Lesson: ${publication.createdAt.toString().split(" ").first}'),
-                        buildIconTextRow(
-                            context: context,
-                            icon: Icons.people,
-                            text: ' ${publication.author.username}'),
-                        buildIconTextRow(
-                            context: context,
-                            icon: Icons.star,
-                            text: publication.author.email),
+                        Expanded(
+                          child: buildIconTextRow(
+                              context: context,
+                              icon: Icons.book,
+                              text:
+                                  'Lesson: ${publication.createdAt.toString().split(" ").first}'),
+                        ),
+                        Expanded(
+                          child: buildIconTextRow(
+                              context: context,
+                              icon: Icons.people,
+                              text: publication.author.username),
+                        ),
+                        Expanded(
+                          child: buildIconTextRow(
+                              context: context,
+                              icon: Icons.star,
+                              text: publication.author.email),
+                        ),
                       ],
                     ),
                     const SizedBox(height: Sizes.p16),
@@ -122,16 +154,24 @@ Widget buildHorizontalLayout(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Text('Review: ${publication['review']}/5',
-                        Text('Review: 2',
-                            style: Theme.of(context).textTheme.bodySmall),
-                        // Text('Review Count: ${publication['reviewCount']}',
-                        Text('Review Count: 4',
-                            style: Theme.of(context).textTheme.bodySmall),
+                        Expanded(
+                          child: Text(
+                            'Review: 2',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Review Count: 4',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
                       ],
                     ),
-                    Text('Price: \$${publication.price}',
-                        style: Theme.of(context).textTheme.bodySmall),
+                    Text(
+                      'Price: \$${publication.price}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     const Spacer(),
                     buildAuthorSection(
                         context: context, publication: publication),
@@ -154,11 +194,16 @@ Widget buildIconTextRow(
     children: [
       Icon(icon),
       const SizedBox(width: Sizes.p4),
-      Text(text,
+      Expanded(
+        child: Text(
+          text,
           style: Theme.of(context)
               .textTheme
               .bodyMedium!
-              .copyWith(fontWeight: FontWeight.w600)),
+              .copyWith(fontWeight: FontWeight.w600),
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
     ],
   );
 }
@@ -210,20 +255,30 @@ Widget buildAuthorSection(
     children: [
       Row(
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(publication.author.profilePicture),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(Sizes.p8),
+            child: Image.network(
+              '${AppConstants.imageBaseUrl}/images/${publication.author.profilePicture}',
+              width: 38,
+              height: 38,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(width: Sizes.p8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(publication.author.username,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.w600)),
-              Text(publication.author.email,
-                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(
+                publication.author.username,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w600),
+              ),
+              Text(
+                publication.author.email,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ],
           ),
         ],
@@ -232,9 +287,13 @@ Widget buildAuthorSection(
         onPressed: () {},
         child: Row(
           children: [
-            Text("Expand",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
+            Text(
+              "Expand",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(width: Sizes.p4),
             const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16),
           ],

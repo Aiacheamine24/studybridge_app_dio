@@ -59,5 +59,7 @@ Future<void> initDependencies() async {
         publicationRepositoryDomaineLayer: getItInstance()))
     ..registerFactory<HomeBloc>(() => HomeBloc(
           getPublicationsUseCase: getItInstance(),
-        ));
+        ))
+    ..registerFactory<PublicationsRemoteDataSource>(
+        () => PublicationsRemoteDataSourceImpl(network: getItInstance()));
 }

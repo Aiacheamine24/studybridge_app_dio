@@ -12,21 +12,36 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({
     required this.getPublicationsUseCase,
   }) : super(HomeInitial()) {
-    on<HomeEvent>((event, emit) {
+    on<HomeEvent>((event, emit) async {
       // HomeLoadPublications Event
       if (event is HomeLoadPublications) {
         emit(HomeLoading());
-        getPublicationsUseCase(GetPublicationsParams(
+        final publications = await getPublicationsUseCase(GetPublicationsParams(
           page: event.page,
           limit: event.limit,
-        )).then((result) {
-          result.fold(
-            (failure) => emit(HomeFailure(message: failure.message)),
-            (publications) => emit(
-              HomeLoadedPublicationsSuccess(publications: publications),
-            ),
-          );
-        });
+        ));
+
+        publications.fold(
+          (failure) => emit(HomeFailure(message: failure.message)),
+          (publications) => emit(
+            HomeLoadedPublicationsSuccess(publications: publications),
+          ),
+        );
+      }
+
+      // HomeLoadMorePublications Event
+      if (event is HomeLoadMorePublications) {
+        final publications = await getPublicationsUseCase(GetPublicationsParams(
+          page: event.page,
+          limit: event.limit,
+        ));
+
+        publications.fold(
+          (failure) => emit(HomeFailure(message: failure.message)),
+          (publications) => emit(
+            HomeLoadedPublicationsSuccess(publications: publications),
+          ),
+        );
       }
     });
   }
